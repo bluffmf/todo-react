@@ -3,6 +3,14 @@ import React from 'react';
 
 
 const List = React.createClass({
+    
+    getInitialState : function(){
+        return {
+            editFlag: false,
+            over: false
+        };
+    },
+
     render: function() {
         return (
             <div className="rg-list">
@@ -13,17 +21,25 @@ const List = React.createClass({
                         <i className="fa fa-list-alt" aria-hidden="true"></i>
                     </div>
                     
-                    {/**ngIf="!editFlag"*/}
-                    <div className="rg-header" >
-                        {/*{{list.name}}*/}
-                    </div>            
-
-                    {/**ngIf="editFlag"
-                    #newName [(ngModel)]="list.name"
-                    */}
-                    <div className="rg-header" >
-                        <input type="text" />
-                    </div>
+{/*https://angulartoreact.com/learning-center/reactjs-development/ng-if-react-equivalent/*/}
+                    { ( editFlag => {
+                        if (editFlag) {
+                            return (
+                                <div className="rg-header" >
+                                    {/*#newName [(ngModel)]="list.name"*/}
+                                    <input type="text" />
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div className="rg-header" >
+                                    {this.props.list.name}
+                                </div>
+                            )           
+                        }
+                    })(this.state.editFlag)}
+                    
+                    
 
                     <div className="rg-right">
                         {/*<div [hidden]="!over"><i class="fa fa-pencil" aria-hidden="true" (click)="editList()"></i></div>

@@ -25029,8 +25029,8 @@
 	  },
 	
 	  render: function render() {
-	    var listComponents = this.props.lists.map(function (item) {
-	      return _react2.default.createElement(_list2.default, null);
+	    var listComponents = this.props.lists.map(function (lis) {
+	      return _react2.default.createElement(_list2.default, { list: lis, key: lis.id });
 	    });
 	
 	    return _react2.default.createElement(
@@ -25103,7 +25103,17 @@
 	var List = _react2.default.createClass({
 	    displayName: "List",
 	
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            editFlag: false,
+	            over: false
+	        };
+	    },
+	
 	    render: function render() {
+	        var _this = this;
+	
 	        return _react2.default.createElement(
 	            "div",
 	            { className: "rg-list" },
@@ -25115,12 +25125,21 @@
 	                    { className: "rg-icon" },
 	                    _react2.default.createElement("i", { className: "fa fa-list-alt", "aria-hidden": "true" })
 	                ),
-	                _react2.default.createElement("div", { className: "rg-header" }),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "rg-header" },
-	                    _react2.default.createElement("input", { type: "text" })
-	                ),
+	                function (editFlag) {
+	                    if (editFlag) {
+	                        return _react2.default.createElement(
+	                            "div",
+	                            { className: "rg-header" },
+	                            _react2.default.createElement("input", { type: "text" })
+	                        );
+	                    } else {
+	                        return _react2.default.createElement(
+	                            "div",
+	                            { className: "rg-header" },
+	                            _this.props.list.name
+	                        );
+	                    }
+	                }(this.state.editFlag),
 	                _react2.default.createElement("div", { className: "rg-right" })
 	            ),
 	            _react2.default.createElement(

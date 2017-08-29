@@ -43,9 +43,9 @@ const Home = React.createClass({
   },
 
   render: function() {
-    var listComponents = this.props.lists.map(function(item) {
+    var listComponents = this.props.lists.map(function(lis) {
       return (
-        <List />
+        <List list={lis} key={lis.id} />
       );
     });
 
